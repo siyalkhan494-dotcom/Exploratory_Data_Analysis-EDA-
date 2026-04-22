@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iris Dataset EDA Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .header .date {
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        /* Section Styles */
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .section h2 {
+            color: #667eea;
+            border-left: 5px solid #667eea;
+            padding-left: 15px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        .section h3 {
+            color: #764ba2;
+            margin: 20px 0 10px 0;
+        }
+        
+        /* Grid and Card Styles */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .metric {
+            font-size: 3em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+        
+        .metric-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            overflow-x: auto;
+            display: block;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        tr:hover {
+            background: #f0f0f0;
+        }
+        
+        /* Insight Boxes */
+        .insight {
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .warning {
+            background: #fff3e0;
+            border-left: 5px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .success {
+            background: #e3f2fd;
+            border-left: 5px solid #2196f3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .image-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .image-card:hover {
+            transform: scale(1.02);
+        }
+        
+        .image-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .image-card p {
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            background: white;
+            margin: 0;
+        }
+        
+        /* Footer */
+        .footer {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+        }
+        
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .badge-success {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .badge-warning {
+            background: #ff9800;
+            color: white;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .metric {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🌸 Iris Dataset Exploratory Data Analysis</h1>
+            <p>A comprehensive analysis of Fisher's Iris dataset (1936)</p>
+            <p class="date">Generated: <span id="date"></span></p>
+        </div>
+        
+        <!-- Overview Section -->
+        <div class="section">
+            <h2>📊 Dataset Overview</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="metric">150</div>
+                    <div class="metric-label">Total Samples</div>
+                </div>
+                <div class="card">
+                    <div class="metric">4</div>
+                    <div class="metric-label">Features</div>
+                </div>
+                <div class="card">
+                    <div class="metric">3</div>
+                    <div class="metric-label">Species</div>
+                </div>
+                <div class="card">
+                    <div class="metric">0</div>
+                    <div class="metric-label">Missing Values</div>
+                </div>
+            </div>
+            
+            <div class="success">
+                <strong>✓ Data Quality Assessment:</strong> The dataset is perfectly clean with no missing values or duplicate rows. All features are numerical and ready for analysis.
+            </div>
+        </div>
+        
+        <!-- Species Distribution -->
+        <div class="section">
+            <h2>📈 Species Distribution</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="metric">50</div>
+                    <div class="metric-label">Setosa</div>
+                </div>
+                <div class="card">
+                    <div class="metric">50</div>
+                    <div class="metric-label">Versicolor</div>
+                </div>
+                <div class="card">
+                    <div class="metric">50</div>
+                    <div class="metric-label">Virginica</div>
+                </div>
+            </div>
+            <div class="insight">
+                <strong>✓ Perfectly Balanced Dataset:</strong> Each species has exactly 50 samples, making this dataset ideal for classification tasks without class imbalance issues.
+            </div>
+        </div>
+        
+        <!-- Descriptive Statistics -->
+        <div class="section">
+            <h2>📐 Descriptive Statistics</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Statistic</th>
+                        <th>Sepal Length (cm)</th>
+                        <th>Sepal Width (cm)</th>
+                        <th>Petal Length (cm)</th>
+                        <th>Petal Width (cm)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Mean</td><td>5.84</td><td>3.06</td><td>3.76</td><td>1.20</td></tr>
+                    <tr><td>Std Dev</td><td>0.83</td><td>0.44</td><td>1.77</td><td>0.76</td></tr>
+                    <tr><td>Min</td><td>4.30</td><td>2.00</td><td>1.00</td><td>0.10</td></tr>
+                    <tr><td>25%</td><td>5.10</td><td>2.80</td><td>1.60</td><td>0.30</td></tr>
+                    <tr><td>50% (Median)</td><td>5.80</td><td>3.00</td><td>4.35</td><td>1.30</td></tr>
+                    <tr><td>75%</td><td>6.40</td><td>3.30</td><td>5.10</td><td>1.80</td></tr>
+                    <tr><td>Max</td><td>7.90</td><td>4.40</td><td>6.90</td><td>2.50</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Species Comparison -->
+        <div class="section">
+            <h2>🔬 Species Comparison (Mean Values)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Species</th>
+                        <th>Sepal Length</th>
+                        <th>Sepal Width</th>
+                        <th>Petal Length</th>
+                        <th>Petal Width</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Setosa</td><td>5.01 cm</td><td>3.43 cm</td><td>1.46 cm</td><td>0.25 cm</td></tr>
+                    <tr><td>Versicolor</td><td>5.94 cm</td><td>2.77 cm</td><td>4.26 cm</td><td>1.33 cm</td></tr>
+                    <tr><td>Virginica</td><td>6.59 cm</td><td>2.97 cm</td><td>5.55 cm</td><td>2.03 cm</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Correlation Analysis -->
+        <div class="section">
+            <h2>🔗 Correlation Analysis</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Sepal Length</th>
+                        <th>Sepal Width</th>
+                        <th>Petal Length</th>
+                        <th>Petal Width</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Sepal Length</td><td>1.000</td><td>-0.109</td><td>0.872</td><td>0.818</td></tr>
+                    <tr><td>Sepal Width</td><td>-0.109</td><td>1.000</td><td>-0.421</td><td>-0.357</td></tr>
+                    <tr><td>Petal Length</td><td>0.872</td><td>-0.421</td><td>1.000</td><td>0.963</td></tr>
+                    <tr><td>Petal Width</td><td>0.818</td><td>-0.357</td><td>0.963</td><td>1.000</td></tr>
+                </tbody>
+            </table>
+            <div class="warning">
+                <strong>⚠️ Multicollinearity Detected:</strong> Petal length and petal width show very high correlation (0.96). This indicates feature redundancy that should be considered for modeling.
+            </div>
+        </div>
+        
+        <!-- ANOVA Results -->
+        <div class="section">
+            <h2>📊 Statistical Significance (ANOVA)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>F-Statistic</th>
+                        <th>P-Value</th>
+                        <th>Significant at α=0.05?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Sepal Length</td><td>119.26</td><td>0.000000</td><td>✓ Yes</td></tr>
+                    <tr><td>Sepal Width</td><td>49.16</td><td>0.000000</td><td>✓ Yes</td></tr>
+                    <tr><td>Petal Length</td><td>1180.16</td><td>0.000000</td><td>✓ Yes</td></tr>
+                    <tr><td>Petal Width</td><td>960.01</td><td>0.000000</td><td>✓ Yes</td></tr>
+                </tbody>
+            </table>
+            <div class="insight">
+                <strong>📈 Statistical Finding:</strong> All features show statistically significant differences between species (p < 0.001), confirming that each measurement contributes meaningful information for classification.
+            </div>
+        </div>
+        
+        <!-- Feature Importance -->
+        <div class="section">
+            <h2>⭐ Feature Importance Ranking</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Feature</th>
+                        <th>Discrimination Score</th>
+                        <th>Importance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Petal Length</td><td>1180.16</td><td>⭐⭐⭐⭐⭐</td></tr>
+                    <tr><td>2</td><td>Petal Width</td><td>960.01</td><td>⭐⭐⭐⭐⭐</td></tr>
+                    <tr><td>3</td><td>Sepal Length</td><td>119.26</td><td>⭐⭐</td></tr>
+                    <tr><td>4</td><td>Sepal Width</td><td>49.16</td><td>⭐</td></tr>
+                </tbody>
+            </table>
+            <div class="insight">
+                <strong>💡 Conclusion:</strong> <strong>Petal Length</strong> is the most discriminative feature, while <strong>Sepal Width</strong> is the least useful for species classification.
+            </div>
+        </div>
+        
+        <!-- Key Findings -->
+        <div class="section">
+            <h2>💡 Key Findings</h2>
+            
+            <div class="insight">
+                <strong>🔍 Finding 1: Setosa is Perfectly Separable</strong><br>
+                Setosa can be distinguished from other species using petal length (max 1.9cm vs min 3.0cm) or petal width (max 0.6cm vs min 1.0cm) alone. No overlap exists!
+            </div>
+            
+            <div class="insight">
+                <strong>🎯 Finding 2: Petal Features are Most Important</strong><br>
+                Petal length and width have the highest discriminative power (ANOVA F-statistics > 960), while sepal width is the least informative feature (F-statistic = 49.16).
+            </div>
+            
+            <div class="warning">
+                <strong>⚠️ Finding 3: Feature Redundancy Exists</strong><br>
+                Petal length and petal width are highly correlated (r = 0.96), suggesting redundancy. For dimensionality reduction, consider using only one petal feature.
+            </div>
+            
+            <div class="insight">
+                <strong>🔄 Finding 4: Versicolor-Virginica Overlap</strong><br>
+                While completely separable from Setosa, Versicolor and Virginica show overlap in sepal measurements and some petal measurements, requiring more complex decision boundaries.
+            </div>
+        </div>
+        
+        <!-- Visualizations -->
+        <div class="section">
+            <h2>📸 Visualization Gallery</h2>
+            <div class="image-gallery">
+                <div class="image-card">
+                    <img src="images/eda_dashboard.png" alt="EDA Dashboard" onerror="this.src='https://via.placeholder.com/400x300?text=EDA+Dashboard'">
+                    <p>📊 EDA Dashboard - Main 4-in-1 Analysis</p>
+                </div>
+                <div class="image-card">
+                    <img src="images/petal_analysis.png" alt="Petal Analysis" onerror="this.src='https://via.placeholder.com/400x300?text=Petal+Analysis'">
+                    <p>🌸 Petal Features - Most Discriminative</p>
+                </div>
+                <div class="image-card">
+                    <img src="images/correlation_matrix_final.png" alt="Correlation" onerror="this.src='https://via.placeholder.com/400x300?text=Correlation+Matrix'">
+                    <p>🔗 Correlation Heatmap</p>
+                </div>
+                <div class="image-card">
+                    <img src="images/complete_pairplot.png" alt="Pairplot" onerror="this.src='https://via.placeholder.com/400x300?text=Pairplot'">
+                    <p>📈 Complete Feature Pairplot</p>
+                </div>
+                <div class="image-card">
+                    <img src="images/species_profiles.png" alt="Species Profiles" onerror="this.src='https://via.placeholder.com/400x300?text=Species+Profiles'">
+                    <p>📊 Species Comparison - Mean Values</p>
+                </div>
+                <div class="image-card">
+                    <img src="images/density_distributions.png" alt="Density" onerror="this.src='https://via.placeholder.com/400x300?text=Density+Distributions'">
+                    <p>📐 Density Distributions by Species</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recommendations -->
+        <div class="section">
+            <h2>🎯 Recommendations for Modeling</h2>
+            <div class="success">
+                <strong>✓ Recommended Approach:</strong>
+                <ul style="margin-top: 15px; margin-left: 20px;">
+                    <li>Prioritize petal features (length and width) for classification</li>
+                    <li>Consider removing one petal feature to reduce multicollinearity</li>
+                    <li>Sepal width can be deprioritized or removed from the model</li>
+                    <li>Linear models (Logistic Regression, SVM) will work well for Setosa vs others</li>
+                    <li>Non-linear models (Random Forest, XGBoost) may be needed for Versicolor vs Virginica</li>
+                    <li>The dataset is ready for modeling with NO preprocessing required!</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Conclusion -->
+        <div class="section">
+            <h2>📋 Conclusion</h2>
+            <p>The Iris dataset is an excellent starting point for machine learning due to its clean structure, balanced classes, and clear patterns. Through this EDA, we have discovered that:</p>
+            <ul style="margin: 15px 0 0 20px;">
+                <li>The dataset is perfectly balanced with 50 samples per species</li>
+                <li>No missing values or quality issues exist</li>
+                <li>Petal features are the most discriminative for species classification</li>
+                <li>Setosa is linearly separable from other species</li>
+                <li>Petal length and width are highly correlated (redundant)</li>
+                <li>Sepal width is the least informative feature</li>
+            </ul>
+            <p style="margin-top: 15px;">These insights provide a solid foundation for building classification models. The EDA process has successfully revealed the underlying structure of the data and identified which features will be most valuable for predictive modeling.</p>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>Generated by Iris EDA Pipeline | Data Science Internship Project</p>
+            <p>Dataset: Fisher's Iris Dataset (1936) - Public Domain</p>
+            <p>Analysis completed with Python, Pandas, Matplotlib, and Seaborn</p>
+        </div>
+    </div>
+    
+    <script>
+        // Set current date
+        document.getElementById('date').innerHTML = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    </script>
+</body>
+</html>

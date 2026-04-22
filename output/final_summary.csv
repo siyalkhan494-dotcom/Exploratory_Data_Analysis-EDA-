@@ -1,0 +1,4 @@
+Species,Sepal_Length_Mean,Sepal_Length_Std,Sepal_Width_Mean,Sepal_Width_Std,Petal_Length_Mean,Petal_Length_Std,Petal_Width_Mean,Petal_Width_Std
+Setosa,5.01,0.35,3.43,0.38,1.46,0.17,0.25,0.11
+Versicolor,5.94,0.52,2.77,0.31,4.26,0.47,1.33,0.2
+Virginica,6.59,0.64,2.97,0.32,5.55,0.55,2.03,0.27

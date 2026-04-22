@@ -1,0 +1,11 @@
+IRIS DATASET INSPECTION REPORT
+==================================================
+
+Shape: 150 rows, 5 columns
+Missing values: 0
+Duplicate rows: 1
+
+Species distribution:
+  setosa: 50
+  versicolor: 50
+  virginica: 50

@@ -1,0 +1,13 @@
+HYPERPARAMETER TUNING RESULTS
+==================================================
+
+best_model: SVM
+best_accuracy: 0.9833333333333332
+rf_best_params: {'max_depth': None, 'min_samples_leaf': 1, 'min_samples_split': 10, 'n_estimators': 50}
+rf_best_score: 0.9583333333333334
+svm_best_params: {'C': 1, 'gamma': 0.1, 'kernel': 'rbf'}
+svm_best_score: 0.9833333333333332
+knn_best_params: {'metric': 'euclidean', 'n_neighbors': 5, 'weights': 'uniform'}
+knn_best_score: 0.9666666666666668
+cv_mean_accuracy: 0.9583333333333333
+cv_std: 0.05590169943749474

@@ -1,0 +1,5 @@
+BEST MODEL INFORMATION
+========================================
+Best Model: Support Vector Machine (SVM)
+Test Accuracy: 96.67%
+Total models evaluated: 5

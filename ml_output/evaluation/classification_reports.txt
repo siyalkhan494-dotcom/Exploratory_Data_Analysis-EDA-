@@ -1,0 +1,73 @@
+CLASSIFICATION REPORTS
+==================================================
+
+
+Logistic Regression
+----------------------------------------
+              precision    recall  f1-score   support
+
+      Setosa       1.00      1.00      1.00        10
+  Versicolor       0.90      0.90      0.90        10
+   Virginica       0.90      0.90      0.90        10
+
+    accuracy                           0.93        30
+   macro avg       0.93      0.93      0.93        30
+weighted avg       0.93      0.93      0.93        30
+
+==================================================
+
+K-Nearest Neighbors (KNN)
+----------------------------------------
+              precision    recall  f1-score   support
+
+      Setosa       1.00      1.00      1.00        10
+  Versicolor       0.83      1.00      0.91        10
+   Virginica       1.00      0.80      0.89        10
+
+    accuracy                           0.93        30
+   macro avg       0.94      0.93      0.93        30
+weighted avg       0.94      0.93      0.93        30
+
+==================================================
+
+Decision Tree
+----------------------------------------
+              precision    recall  f1-score   support
+
+      Setosa       1.00      1.00      1.00        10
+  Versicolor       0.90      0.90      0.90        10
+   Virginica       0.90      0.90      0.90        10
+
+    accuracy                           0.93        30
+   macro avg       0.93      0.93      0.93        30
+weighted avg       0.93      0.93      0.93        30
+
+==================================================
+
+Random Forest
+----------------------------------------
+              precision    recall  f1-score   support
+
+      Setosa       1.00      1.00      1.00        10
+  Versicolor       0.82      0.90      0.86        10
+   Virginica       0.89      0.80      0.84        10
+
+    accuracy                           0.90        30
+   macro avg       0.90      0.90      0.90        30
+weighted avg       0.90      0.90      0.90        30
+
+==================================================
+
+Support Vector Machine (SVM)
+----------------------------------------
+              precision    recall  f1-score   support
+
+      Setosa       1.00      1.00      1.00        10
+  Versicolor       1.00      0.90      0.95        10
+   Virginica       0.91      1.00      0.95        10
+
+    accuracy                           0.97        30
+   macro avg       0.97      0.97      0.97        30
+weighted avg       0.97      0.97      0.97        30
+
+==================================================

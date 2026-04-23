@@ -1,0 +1,9 @@
+TRAIN-TEST SPLIT INFORMATION
+========================================
+total_samples: 150
+train_samples: 120
+test_samples: 30
+train_percentage: 80.0
+test_percentage: 20.0
+random_state: 42
+stratified: True

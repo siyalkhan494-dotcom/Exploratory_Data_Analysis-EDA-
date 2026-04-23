@@ -1,0 +1,12 @@
+TRAINED MODELS
+========================================
+- Logistic Regression
+- K-Nearest Neighbors (KNN)
+- Decision Tree
+- Random Forest
+- Support Vector Machine (SVM)
+
+========================================
+Total models: 5
+Training data size: 120 samples
+Features: 4

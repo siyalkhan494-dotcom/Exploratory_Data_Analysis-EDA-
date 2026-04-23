@@ -1,0 +1,5 @@
+STANDARD SCALER INFORMATION
+========================================
+Features: ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']
+Means: [5.841666666666667, 3.048333333333333, 3.77, 1.2049999999999998]
+Standard Deviations: [0.8374150039788449, 0.44665111913239647, 1.7611359970201053, 0.7594789880788891]

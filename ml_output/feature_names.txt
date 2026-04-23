@@ -1,0 +1,6 @@
+Feature columns for Iris dataset:
+========================================
+0: sepal length (cm)
+1: sepal width (cm)
+2: petal length (cm)
+3: petal width (cm)
